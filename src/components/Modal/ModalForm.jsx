@@ -75,7 +75,7 @@ export const ModalForm = ({ id, closeModal }) => {
                 value={name}
                 name="name"
                 placeholder="Enter contact`s name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                pattern="^[a-zA-Zа-яА-Я]+([ -'][a-zA-Zа-яА-Я]+)*$"
                 title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               />
             </Label>
@@ -87,7 +87,7 @@ export const ModalForm = ({ id, closeModal }) => {
                 type="tel"
                 name="number"
                 placeholder="Enter contact`s number"
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                pattern="^[+]?[0-9 \u0028\u0029\u002D]*$"
                 title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               />
             </Label>
