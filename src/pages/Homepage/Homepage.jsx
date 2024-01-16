@@ -13,13 +13,13 @@ import {
   Copyright,
   CopyrightText,
 } from './Homepage.styled';
-import { getLogStatus, getUserName } from './../../redux/authSelectors';
+import { selectLogStatus, selectUserName } from './../../redux/authSelectors';
 import Animation from '../../images/people.gif';
 import Animation2 from '../../images/app.gif';
 import { PhonebookLogo } from 'components/Logo/Logo';
 const Homepage = () => {
-  const isLoggedIn = useSelector(getLogStatus);
-  const name = useSelector(getUserName);
+  const isLoggedIn = useSelector(selectLogStatus);
+  const name = useSelector(selectUserName);
   return (
     <HomeMain>
       {isLoggedIn ? (

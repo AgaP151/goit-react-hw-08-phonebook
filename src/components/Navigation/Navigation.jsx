@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { getLogStatus } from './../../redux/authSelectors';
+import { selectLogStatus } from './../../redux/authSelectors';
 import { HomepageLink, LinkIcon, LinkText } from './Navigation.styled';
 import { FcHome, FcContacts } from 'react-icons/fc';
 
 export const Navigation = () => {
-  const isLoggedIn = useSelector(getLogStatus);
+  const isLoggedIn = useSelector(selectLogStatus);
   return (
     <>
       <HomepageLink to="/">

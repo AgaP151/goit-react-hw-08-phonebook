@@ -4,12 +4,12 @@ import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 import { Loader } from 'components/Loader/Loader';
 import { useSelector } from 'react-redux';
-import { getLoadingStatus } from './../../redux/authSelectors';
+import { selectLoadingStatus } from './../../redux/authSelectors';
 import { Container, SubHeader, BlockWrapper } from './Contacts.styled';
 import Arrow from '../../images/arrowUp.png';
 
 export const Contacts = () => {
-  const loader = useSelector(getLoadingStatus);
+  const loader = useSelector(selectLoadingStatus);
   return (
     <Container>
       {loader && <Loader />}
