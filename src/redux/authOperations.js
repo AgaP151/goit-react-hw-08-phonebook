@@ -31,6 +31,9 @@ export const fetchCurrentUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   '/users/register',
   async (credentials, thunkAPI) => {
+  const store = thunkAPI.getState();
+  const token = store.auth.token;
+  if (token) {
     try {
       const response = await axios.post('/users/signup', credentials);
       setAuthorizationToken(response.data.token);
@@ -39,7 +42,7 @@ export const registerUser = createAsyncThunk(
       Notiflix.Notify.failure(`${error.message}`, notifySettings);
       return thunkAPI.rejectWithValue(error.request.status);
     }
-  }
+  }}
 );
 
 export const loginUser = createAsyncThunk(
@@ -57,34 +60,21 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  'auth/logout',
+  'users/logout',
   async (_, thunkAPI) => {
+  const store = thunkAPI.getState();
+  const token = store.auth.token;
+  if (token) {
     try {
-      const response = await axios.post('/users/logout', null, {
+    const response = await axios.post( 'users/logout', null, {
         headers: {
-          //Authorization: setAuthorizationToken(""),
-          Authorization: 'Bearer <token> ',
-          //Authorization: `Bearer ${token}`
-        },
-      });
-      setAuthorizationToken('');
+          Authorization: setAuthorizationToken(token),
+                },
+      });  
+      setAuthorizationToken(null);   
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  }}
 );
-export const me = createAsyncThunk('/users/me', async (_, thunkAPI) => {
-  const store = thunkAPI.getState();
-  const token = store.auth.token;
-  if (token) {
-    setAuthorizationToken(token);
-    try {
-      const res = await axios.get('/users/me');
-      return res.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
-    }
-  }
-  return thunkAPI.rejectWithValue('No token');
-});
