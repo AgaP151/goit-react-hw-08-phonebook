@@ -46,7 +46,7 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  '/users/login',
+  'auth/loginUser',
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/users/login', credentials);
@@ -60,21 +60,29 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  'users/logout',
+  'auth/logout',
   async (_, thunkAPI) => {
-  const store = thunkAPI.getState();
-  const token = store.auth.token;
-  if (token) {
-    try {
-    const response = await axios.post( 'users/logout', null, {
-        headers: {
-          Authorization: setAuthorizationToken(token),
-                },
-      });  
-      setAuthorizationToken(null);   
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    const store = thunkAPI.getState();
+    const token = store.auth.token;
+    
+    if (token) {
+      setAuthorizationToken(token);
+      
+      try {
+        const response = await axios.post('/users/logout', null,  {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+              
+        return response.data;
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+      } finally {
+      
+        setAuthorizationToken(null);
+      }
     }
-  }}
+  }
 );
