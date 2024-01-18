@@ -18,7 +18,7 @@ import {
 import { NavLink } from 'components/NavLink/NavLink';
 import { Btn } from 'components/Btn/Btn';
 import Animation from '../../images/man.gif';
-import { registerUser } from './../../redux/authOperations';
+import { registerUser } from '../../redux/authOperations';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -56,6 +56,7 @@ const Register = () => {
     setEmail('');
     setPassword('');
   };
+
 
   return (
     <Container>

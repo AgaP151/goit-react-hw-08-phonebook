@@ -10,7 +10,7 @@ import {
 
 const onPending = state => {
   state.isLoading = true;
-};
+ };
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -26,7 +26,6 @@ export const authSlice = createSlice({
     builder
       .addCase(registerUser.pending, onPending)
       .addCase(registerUser.fulfilled, (state, action) => {
-         console.log(state);        
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
@@ -37,7 +36,7 @@ export const authSlice = createSlice({
         );
       })
       .addCase(registerUser.rejected, (state, action) => {
-         state.isLoading = false;
+        state.isLoading = false;
         state.error = action.payload;
         if (state.error === 400 || state.error === 401) {
           Notiflix.Notify.warning(
