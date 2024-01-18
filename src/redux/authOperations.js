@@ -29,8 +29,7 @@ export const fetchCurrentUser = createAsyncThunk(
   }
 );
 export const registerUser = createAsyncThunk(
-  '/users/register',
-  async (credentials, thunkAPI) => {
+      'user/register', async (credentials, thunkAPI) => {
   const store = thunkAPI.getState();
   const token = store.auth.token;
   if (token) {
@@ -48,6 +47,9 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, thunkAPI) => {
+    const store = thunkAPI.getState();
+  const token = store.auth.token;
+  if (token) {
     try {
       const response = await axios.post('/users/login', credentials);
       setAuthorizationToken(response.data.token);
@@ -56,7 +58,7 @@ export const loginUser = createAsyncThunk(
       Notiflix.Notify.failure(`${error.message}`, notifySettings);
       return thunkAPI.rejectWithValue(error.request.status);
     }
-  }
+  }}
 );
 
 export const logoutUser = createAsyncThunk(

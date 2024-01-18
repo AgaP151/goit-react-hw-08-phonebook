@@ -78,6 +78,7 @@ const Register = () => {
               pattern="^[a-zA-Zа-яА-Я]+([ -'][a-zA-Zа-яА-Я]+)*$"
               required
               placeholder="Enter your name"
+              autoComplete="off"
               onChange={onInputChange}
             />
             <Label htmlFor="auth-name">Name</Label>
@@ -89,6 +90,7 @@ const Register = () => {
               required
               pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
               placeholder="Enter your email"
+              autoComplete="off"
               onChange={onInputChange}
             />
             <Label htmlFor="auth-email">Email</Label>
@@ -101,6 +103,7 @@ const Register = () => {
               required
               minLength="6"
               placeholder="Enter your password"
+              autoComplete="off"
               onChange={onInputChange}
             />
             <Label htmlFor="auth-password">Password</Label>
