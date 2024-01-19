@@ -29,27 +29,26 @@ export const fetchCurrentUser = createAsyncThunk(
   }
 );
 export const registerUser = createAsyncThunk(
-      'user/register', async (credentials, thunkAPI) => {
-  const store = thunkAPI.getState();
-  const token = store.auth.token;
-  if (!token) {
-    try {
-      const response = await axios.post('/users/signup', credentials);
-      setAuthorizationToken(response.data.token);
-                 return response.data;
-              } catch (error) {
-      Notiflix.Notify.failure(`${error.message}`, notifySettings);
-      return thunkAPI.rejectWithValue(error.request.status);
+  'user/register',
+  async (credentials, thunkAPI) => {
+    const store = thunkAPI.getState();
+    const token = store.auth.token;
+    if (!token) {
+      try {
+        const response = await axios.post('/users/signup', credentials);
+        setAuthorizationToken(response.data.token);
+        return response.data;
+      } catch (error) {
+        Notiflix.Notify.failure(`${error.message}`, notifySettings);
+        return thunkAPI.rejectWithValue(error.request.status);
+      }
     }
-  }}
+  }
 );
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, thunkAPI) => {
-    const store = thunkAPI.getState();
-  const token = store.auth.token;
-  if (!token) {
     try {
       const response = await axios.post('/users/login', credentials);
       setAuthorizationToken(response.data.token);
@@ -58,7 +57,7 @@ export const loginUser = createAsyncThunk(
       Notiflix.Notify.failure(`${error.message}`, notifySettings);
       return thunkAPI.rejectWithValue(error.request.status);
     }
-  }}
+  }
 );
 
 export const logoutUser = createAsyncThunk(
@@ -66,23 +65,21 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const store = thunkAPI.getState();
     const token = store.auth.token;
-    
+
     if (token) {
       setAuthorizationToken(token);
-      
+
       try {
-        const response = await axios.post('/users/logout', null,  {
+        const response = await axios.post('/users/logout', null, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
-        
-              
+
         return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
       } finally {
-      
         setAuthorizationToken(null);
       }
     }

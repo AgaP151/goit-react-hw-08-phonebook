@@ -12,7 +12,7 @@ export const Container = styled.main`
   @media screen and (min-width: 768px) {
     padding: 0 42px;
     flex-direction: row-reverse;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
   }
 

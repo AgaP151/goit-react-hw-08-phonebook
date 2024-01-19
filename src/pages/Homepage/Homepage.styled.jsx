@@ -97,29 +97,3 @@ export const Footer = styled.footer`
 export const Copyright = styled.div``;
 
 export const CopyrightText = styled.p``;
-
-// export const Footer = styled.footer`
-//   position: absolute;
-//   width: 100%;
-//   bottom: 0;
-//   padding-top: 24px;
-//   padding-bottom: 24px;
-//   border-top: 1px solid black;
-//   display: flex;
-
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 10000;
-
-//   @media screen and (min-width: 320px) {
-//     width: 320px;
-//   }
-
-//   @media screen and (min-width: 768px) {
-//     width: 768px;
-//   }
-
-//   @media screen and (min-width: 1280px) {
-//     width: 1280px;
-//   }
-// `;

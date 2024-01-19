@@ -12,7 +12,7 @@ import {
 } from './ModalDelete.styled';
 import Avatar from '../../images/delete.gif';
 import { Btn } from 'components/Btn/Btn';
-import { deleteContact } from 'redux/contactsOperations';
+import { deleteContact } from '../../redux/contactsOperations';
 
 export const ModalDeleteConfirmation = ({ id, closeModal, name }) => {
   const dispatch = useDispatch();

@@ -15,8 +15,8 @@ import {
 import Avatar from '../../images/girl.gif';
 import { Btn } from 'components/Btn/Btn';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateContact } from 'redux/contactsOperations';
-import { getContactsItems } from 'redux/contactsSelectors';
+import { updateContact } from '../../redux/contactsOperations';
+import { getContactsItems } from '../../redux/contactsSelectors';
 import { notifySettings } from 'utils/notifySettings';
 
 export const ModalForm = ({ id, closeModal }) => {

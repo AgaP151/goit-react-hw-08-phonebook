@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact, updateContact } from './contactsOperations';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  updateContact,
+} from './contactsOperations';
 import Notiflix from 'notiflix';
 import { notifySettings } from '../utils/notifySettings';
-
 
 const handlePending = state => {
   state.isLoading = true;
@@ -35,14 +39,14 @@ export const contactsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-     
+
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.items.push(payload);
         state.isLoading = false;
         state.error = null;
         Notiflix.Notify.success(
           `${payload.name} was successfully added to your contacts`,
-            notifySettings
+          notifySettings
         );
       })
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
@@ -54,14 +58,29 @@ export const contactsSlice = createSlice({
           notifySettings
         );
       })
-  
-      .addCase(updateContact.fulfilled, (state, payload) => {
-          state.splice( state.findIndex(contact => contact.id === payload.id), 1, payload);
-          Notiflix.Notify.success(
-          `${payload.name} was successfully added to your contacts`,
-            notifySettings
+      .addCase(updateContact.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(updateContact.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        const index = state.items.findIndex(
+          contact => contact.id === payload.id
         );
-          })
+        state.items.splice(index, 1, payload);
+        Notiflix.Notify.success(
+          'Your contact was successfully updated',
+          notifySettings
+        );
+      })
+      .addCase(updateContact.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+        Notiflix.Notify.failure(
+          'Something went wrong, please try again',
+          notifySettings
+        );
+      })
 
       .addMatcher(isPendingAction, handlePending)
       .addMatcher(isRejectedAction, handleRejected);

@@ -32,20 +32,19 @@ export const ContactForm = () => {
     event.preventDefault();
 
     const includesName = contacts.find(
-    contacts => contacts.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+      contacts => contacts.name.toLocaleLowerCase() === name.toLocaleLowerCase()
     );
-  
 
-  if (includesName) {
-    return Notiflix.Notiflix.warning(
-      `${name} is already in contacts`,
+    if (includesName) {
+      return Notiflix.Notiflix.warning(
+        `${name} is already in contacts`,
         notifySettings
-    );
-  }
+      );
+    }
 
-  dispatch(addContact({ name, number }));
-  resetForm();
-};
+    dispatch(addContact({ name, number }));
+    resetForm();
+  };
 
   const resetForm = () => {
     setName('');
