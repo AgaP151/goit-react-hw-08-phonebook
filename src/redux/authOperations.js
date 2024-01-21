@@ -10,26 +10,25 @@ const setAuthorizationToken = token => {
 };
 
 export const fetchCurrentUser = createAsyncThunk(
-  'contacts/fetchCurrentUser',
+  'auth/fetchCurrentUser',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+
     try {
-      const response = await axios.get('/contacts');
+      setAuthorizationToken(persistedToken);
+      const response = await axios.get('/users/current');
       return response.data;
     } catch (error) {
-      if (error.request.status === 401) {
-        Notiflix.Notify.failure(
-          `Something went wrong, please log in again`,
-          notifySettings
-        );
-        return thunkAPI.rejectWithValue(error.request.status);
-      }
-      Notiflix.Notify.failure(`${error.message}`, notifySettings);
-      return thunkAPI.rejectWithValue(error.request.status);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 export const registerUser = createAsyncThunk(
-  'user/register',
+  'auth/register',
   async (credentials, thunkAPI) => {
     const store = thunkAPI.getState();
     const token = store.auth.token;

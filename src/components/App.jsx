@@ -2,10 +2,11 @@
  import { useEffect, lazy } from 'react';
  import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { fetchContacts } from '../redux/contactsOperations';
+import { fetchCurrentUser } from '../redux/authOperations';
 import { SharedLayout } from 'pages/SharedLayout/SharedLayout';
 import { PublicRoute } from 'routes/PublicRoute';
 import { PrivateRoute } from 'routes/PrivateRoute';
+//import { useAuth } from 'hooks';
 
 const Homepage = lazy(() => import('pages/Homepage/Homepage'));
 const Register = lazy(() => import('pages/Register/Register'));
@@ -13,10 +14,11 @@ const Login = lazy(() => import('pages/Login/Login'));
 const Contacts = lazy(() => import('pages/Contacts/Contacts'));
 
 export const App = () => {
-  const dispatch = useDispatch();
+ const dispatch = useDispatch();
+//const { isRefreshing } = useAuth();
 
-  useEffect(() => {
-    dispatch(fetchContacts);
+useEffect(() => {
+   dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   return (
